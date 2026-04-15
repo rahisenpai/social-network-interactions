@@ -3,7 +3,7 @@
 Dataset: [Reddit Hyperlink Network](https://snap.stanford.edu/data/soc-RedditHyperlinks.html)
 
 
-## 📊 Part 4: Centrality Analysis
+##  Part 4: Centrality Analysis
 
 **Goal:**  
 Identify the most structurally important subreddits in a directed Reddit hyperlink network.
@@ -18,10 +18,10 @@ Identify the most structurally important subreddits in a directed Reddit hyperli
   - **Eigenvector** → influence  
 
 **Key Insights:**
-- ⭐ Top hubs: *askreddit, iama, funny, gaming*
-- 🔗 *subredditdrama* & *bestof* act as bridge/meta communities
-- 📈 Strong correlation: **In-degree ↔ PageRank (ρ ≈ 0.96)**
-- 📉 Out-degree is largely independent → captures a different role
+-  Top hubs: *askreddit, iama, funny, gaming*
+-  *subredditdrama* & *bestof* act as bridge/meta communities
+-  Strong correlation: **In-degree ↔ PageRank (ρ ≈ 0.96)**
+-  Out-degree is largely independent → captures a different role
 
 **Outputs:**
 - `centrality_scores.csv`
@@ -31,7 +31,7 @@ Identify the most structurally important subreddits in a directed Reddit hyperli
 
 ---
 
-## 🚀 Part 5: Information Diffusion
+##  Part 5: Information Diffusion
 
 **Goal:**  
 Simulate how information spreads across the network using structural properties.
@@ -42,28 +42,28 @@ Simulate how information spreads across the network using structural properties.
 
 **Experiment Setup:**
 - Compare:
-  - 🔥 High-centrality seeds (from Part 4)
-  - 🎲 Random seed baseline
+  -  High-centrality seeds (from Part 4)
+  -  Random seed baseline
 
 
-### 📊 Key Results
+###  Key Results
 
 | Model | Central Seeds | Random Seeds | Improvement |
 |------|--------------|-------------|-------------|
 | IC (p=0.01) | 302 | 29 | +942% |
 | LT | 7247 | 53 | +13,583% |
 
-➡️ High-centrality nodes significantly amplify diffusion.
+ High-centrality nodes significantly amplify diffusion.
 
 
-### 🧠 Insights
+###  Insights
 
-- 🚀 **Out-degree** → best for maximizing spread
-- 🎯 **Eigenvector centrality** → best predictor of activation
-- 🔗 Network structure strongly influences diffusion behavior
+-  **Out-degree** → best for maximizing spread
+-  **Eigenvector centrality** → best predictor of activation
+-  Network structure strongly influences diffusion behavior
 
 
-### 📈 Cross-Validation
+###  Cross-Validation
 
 | Measure | Spearman ρ |
 |--------|------------|
@@ -73,10 +73,10 @@ Simulate how information spreads across the network using structural properties.
 | Betweenness | 0.626 |
 | Out-degree | 0.293 |
 
-➡️ Influence depends on *quality of connections*, not just quantity.
+ Influence depends on *quality of connections*, not just quantity.
 
 
-### 📦 Outputs
+###  Outputs
 
 - Diffusion comparison plots (central vs random)
 - Cascade growth curves
@@ -86,7 +86,7 @@ Simulate how information spreads across the network using structural properties.
 
 ---
 
-## ⚡ Takeaway
+##  Takeaway
 
 High-centrality subreddits are not just structurally important —  
 they are **key drivers of large-scale information diffusion**.
