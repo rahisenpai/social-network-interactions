@@ -2,3 +2,4 @@ dataset/**/*
 !dataset/links.txt
 *csv
 *tsv
+*venv
