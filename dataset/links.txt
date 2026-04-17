@@ -1,0 +1,2 @@
+dataset: https://snap.stanford.edu/data/soc-RedditHyperlinks.html
+embeddings: https://snap.stanford.edu/data/web-RedditEmbeddings.html

@@ -1,2 +1,5 @@
-*.tsv
-*.csv
+dataset/**/*
+!dataset/links.txt
+*csv
+*tsv
+*venv
