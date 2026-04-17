@@ -1,92 +1,39 @@
-## Analysing and Predicting Interactions in Large Social Networks
+# Analysis & Prediction of Interactions in Large Social Networks
 
-Dataset: [Reddit Hyperlink Network](https://snap.stanford.edu/data/soc-RedditHyperlinks.html)
+This project explores the structural and dynamic properties of the [Reddit Hyperlink Network](https://snap.stanford.edu/data/soc-RedditHyperlinks.html), a directed, signed, and temporal network representing connections between various subreddits over a 2.5-year period (January 2014 – April 2017). By leveraging network science principles, the study analyzes how these communities interact, cluster, and propagate information, while exploring classical and advanced models for link prediction.  
+  
+Exploratory Data Analysis can be found in `eda.ipynb`.
 
+## Key Deliverables
 
-##  Part 4: Centrality Analysis
+More details about all the deliverables can be found in `report.pdf`.
 
-**Goal:**  
-Identify the most structurally important subreddits in a directed Reddit hyperlink network.
+### Classical Link Prediction
+This section replicates foundational research by Liben-Nowell and Kleinberg to predict future edges based on network topology.
+- Methodology: Evaluation of proximity heuristics like Common Neighbors, Jaccard’s Coefficient, and Adamic/Adar.
+- Key Finding: Topological features effectively predict future links, with Adamic/Adar achieving a "Factor over Random" of 5.61x.
 
-**Approach:**
-- Construct a **directed graph** (~55K nodes, ~858K edges)
-- Compute 5 centrality measures:
-  - **In-degree** → popularity  
-  - **Out-degree** → activity  
-  - **Betweenness** → bridge roles  
-  - **PageRank** → recursive importance  
-  - **Eigenvector** → influence  
+### Scaling Link Prediction with Node Embeddings
+The project improves upon classical methods by representing subreddits as dense vectors in latent space.
+- Methodology: Compared Logistic Regression (LR) using various edge feature constructions (Hadamard, Concatenation) against a Graph Convolutional Network (GCN).
+- Key Finding: LR-Hadamard achieved the highest AUC of 0.9615, outperforming both structural baselines and the GCN.
 
-**Key Insights:**
--  Top hubs: *askreddit, iama, funny, gaming*
--  *subredditdrama* & *bestof* act as bridge/meta communities
--  Strong correlation: **In-degree ↔ PageRank (ρ ≈ 0.96)**
--  Out-degree is largely independent → captures a different role
+### Community Detection and Analysis
+Using the Louvain algorithm, the project identifies how subreddits naturally cluster into thematic groups.
+- Results: Detected 789 communities with a modularity score of 0.4196, indicating strong structural organization.
+- Sentiment Insights: Interactions within communities are 91.4% positive, compared to 88.7% for cross-community links, supporting the homophily hypothesis.
 
-**Outputs:**
-- `centrality_scores.csv`
-- Distribution plots and correlation heatmap
-- Top subreddit rankings
+### Centrality Analysis
+Identifies structurally significant subreddits using multiple centrality measures.
+- Key Metrics: In-degree (popularity), out-degree (activity), betweenness (bridge role), PageRank, and eigenvector centrality.
+- Findings: A small number of hubs like askreddit and iama dominate the network. Correlation analysis reveals that popular nodes (high in-degree) differ from bridge nodes (high out-degree).
 
+### Information Diffusion Modeling
+Simulates how information spreads using Independent Cascade (IC) and Linear Threshold (LT) models.
+- Key Insight: High-centrality seeds produce significantly larger cascades than random seeds (up to +13,583% in the LT model).
+- Validation: Confirms that static network structure directly predicts dynamic diffusion behavior.
 
----
-
-##  Part 5: Information Diffusion
-
-**Goal:**  
-Simulate how information spreads across the network using structural properties.
-
-**Models Used:**
-- **Independent Cascade (IC):** probabilistic activation of out-neighbors  
-- **Linear Threshold (LT):** activation based on influence from in-neighbors  
-
-**Experiment Setup:**
-- Compare:
-  -  High-centrality seeds (from Part 4)
-  -  Random seed baseline
-
-
-###  Key Results
-
-| Model | Central Seeds | Random Seeds | Improvement |
-|------|--------------|-------------|-------------|
-| IC (p=0.01) | 302 | 29 | +942% |
-| LT | 7247 | 53 | +13,583% |
-
- High-centrality nodes significantly amplify diffusion.
-
-
-###  Insights
-
--  **Out-degree** → best for maximizing spread
--  **Eigenvector centrality** → best predictor of activation
--  Network structure strongly influences diffusion behavior
-
-
-###  Cross-Validation
-
-| Measure | Spearman ρ |
-|--------|------------|
-| Eigenvector | 0.810 |
-| In-degree | 0.745 |
-| PageRank | 0.709 |
-| Betweenness | 0.626 |
-| Out-degree | 0.293 |
-
- Influence depends on *quality of connections*, not just quantity.
-
-
-###  Outputs
-
-- Diffusion comparison plots (central vs random)
-- Cascade growth curves
-- Per-centrality spread analysis
-- Centrality vs diffusion correlation plots
-
-
----
-
-##  Takeaway
-
-High-centrality subreddits are not just structurally important —  
-they are **key drivers of large-scale information diffusion**.
+### Temporal Analysis and Prediction with TGN
+Implements a Temporal Graph Network (TGN) to process continuous-time events and evolving graph structures.
+- Performance: The TGN achieved an impressive AUC-ROC of 0.9766 and Avg-Prec of 0.9756.
+- Longitudinal Study: Over time, the network saw an 80% increase in nodes, though overall density decreased, suggesting the network becomes increasingly sparse as it scales.
